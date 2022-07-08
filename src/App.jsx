@@ -6,31 +6,31 @@ import data from "./data.json";
 import "./index.css";
 
 export function App() {
-  const [list, setList] = useState(data);
+  const [list, setList] = useState([]);
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
     if (category.length == 0) {
       return setList(data);
     }
-    setList([]);
 
-    data?.map((item) => {
-      item?.languages.map((lang) => {
-        category.map((cat) => {
-          if (lang == cat) {
-            setList((prev) => [...prev, item]);
-          }
-        });
-      });
-      item?.tools.map((tool) => {
-        category.map((cat) => {
-          if (tool == cat) {
-            setList((prev) => [...prev, item]);
-          }
-        });
-      });
-    });
+    const newList = list.filter(obj => {
+      console.log(obj.languages)
+      obj.languages.includes(category)
+    })
+
+    setList(newList)
+
+    // list?.map((item) => {
+    //   category.map((cat) => {
+    //     if (item.languages.includes(cat)) {
+    //       // item.tools.includes(cat))
+    //       setList((prev) => {
+    //         [...prev, item];
+    //       });
+    //     }
+    //   });
+    // });
   }, [category]);
 
   useEffect(() => {
@@ -47,9 +47,7 @@ export function App() {
           <Categories setCategory={setCategory} category={category} />
         )}
         {list?.map((obj) => {
-          return (
-            <Card data={obj} setList={setList} setCategory={setCategory} />
-          );
+          return <Card data={obj} setCategory={setCategory} />;
         })}
       </main>
     </div>
