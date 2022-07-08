@@ -1,36 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "./components/Card";
-import "./index.css";
-import data from "./data.json";
-import { useEffect } from "react";
 import { Categories } from "./components/Categories";
+
+import data from "./data.json";
+import "./index.css";
 
 export function App() {
   const [list, setList] = useState(data);
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    if (category == undefined) {
+    if (category.length == 0) {
       return setList(data);
     }
     setList([]);
 
     data?.map((item) => {
       item?.languages.map((lang) => {
-        if (lang == category) {
-          setList((prev) => [...prev, item]);
-        }
+        category.map((cat) => {
+          if (lang == cat) {
+            setList((prev) => [...prev, item]);
+          }
+        });
       });
       item?.tools.map((tool) => {
-        if (tool == category) {
-          setList((prev) => [...prev, item]);
-        }
+        category.map((cat) => {
+          if (tool == cat) {
+            setList((prev) => [...prev, item]);
+          }
+        });
       });
     });
   }, [category]);
 
   useEffect(() => {
     console.log(list);
+    console.log(category);
   }, [list]);
 
   return (
@@ -38,7 +43,9 @@ export function App() {
       <header className="h-[25vh] bg-gray-100 bg-cover bg-header-mobile md:bg-header-desktop"></header>
       <div></div>
       <main className="px-8 py-4 bg-gray-200 h-[80vh] md:px-16">
-        {category && <Categories setCategory={setCategory} category={category} />}
+        {category.length != 0 && (
+          <Categories setCategory={setCategory} category={category} />
+        )}
         {list?.map((obj) => {
           return (
             <Card data={obj} setList={setList} setCategory={setCategory} />
