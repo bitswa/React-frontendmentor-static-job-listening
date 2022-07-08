@@ -16,7 +16,4 @@
     font-size: 15px;
     @apply bg-gray-200 flex justify-end flex-col text-gray-100;
   }
-  header {
-    background: url(./public/images/bg-header-mobile.svg) no-repeat;
-  }
 }

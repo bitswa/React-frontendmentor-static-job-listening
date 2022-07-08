@@ -1,10 +1,20 @@
 import React from "react";
 
-export function Card({ data }) {
+export function Card({ data, setCategory }) {
+
+  const handleCategory = (e) => {
+    const index = e.target.innerHTML
+    setCategory(index)
+  }
+
   return (
     <div className="relative w-full border-l-4 border-gray-400 rounded-lg bg-gray-300 shadow-lg my-8 p-4 pt-8">
       <div className="border-b-[1px] border-gray-400">
-        <img className="absolute top-[-24px] w-12 " src={`./public/${data.logo}`} alt="" />
+        <img
+          className="absolute top-[-24px] w-12 "
+          src={`./public/${data.logo}`}
+          alt="company logo"
+        />
         <div className="flex items-center pb-2 gap-5">
           <p>{data.company}</p>
           <span className="flex gap-2 text-white">
@@ -28,11 +38,27 @@ export function Card({ data }) {
         </div>
       </div>
       <div className="inline-flex pt-3 gap-2">
-        {data?.languages?.map((lang) => {
-          return <span className="bg-gray-300 shadow-md px-2">{lang}</span>;
+        {data?.languages?.map((lang, index) => {
+          return (
+            <button
+              key={index}
+              onClick={(e) => handleCategory(e)}
+              className="bg-gray-300 shadow-md px-2"
+            >
+              {lang}
+            </button>
+          );
         })}
-        {data?.tools?.map((tool) => {
-          return <span className="bg-gray-300 shadow-md px-2">{tool}</span>;
+        {data?.tools?.map((tool, index) => {
+          return (
+            <button
+              key={index}
+              onClick={(e) => handleCategory(e)}
+              className="bg-gray-300 shadow-md px-2"
+            >
+              {tool}
+            </button>
+          );
         })}
       </div>
     </div>
