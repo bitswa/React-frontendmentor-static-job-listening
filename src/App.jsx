@@ -14,29 +14,21 @@ export function App() {
       return setList(data);
     }
 
-    const newList = list.filter(obj => {
-      console.log(obj.languages)
-      obj.languages.includes(category)
-    })
+    const filterList = (lang) => {
+      const newList = list.filter((item) => {
+        return item.languages.includes(lang);
+      });
+      setList(newList);
+    };
 
-    setList(newList)
+    category.map((lang) => filterList(lang));
 
-    // list?.map((item) => {
-    //   category.map((cat) => {
-    //     if (item.languages.includes(cat)) {
-    //       // item.tools.includes(cat))
-    //       setList((prev) => {
-    //         [...prev, item];
-    //       });
-    //     }
-    //   });
-    // });
   }, [category]);
 
-  useEffect(() => {
-    console.log(list);
-    console.log(category);
-  }, [list]);
+  // useEffect(() => {
+  //   console.log(list);
+  //   console.log(category);
+  // }, [list]);
 
   return (
     <div>
@@ -47,7 +39,7 @@ export function App() {
           <Categories setCategory={setCategory} category={category} />
         )}
         {list?.map((obj) => {
-          return <Card data={obj} setCategory={setCategory} />;
+          return <Card key={obj.id} data={obj} setCategory={setCategory} />;
         })}
       </main>
     </div>
