@@ -16,19 +16,15 @@ export function App() {
 
     const filterList = (lang) => {
       const newList = list.filter((item) => {
-        return item.languages.includes(lang);
+        if (item.languages.includes(lang) || item.tools.includes(lang)) {
+          return true;
+        }
       });
       setList(newList);
     };
 
     category.map((lang) => filterList(lang));
-
   }, [category]);
-
-  // useEffect(() => {
-  //   console.log(list);
-  //   console.log(category);
-  // }, [list]);
 
   return (
     <div>
