@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "./components/Card";
 import { Categories } from "./components/Categories";
 
@@ -16,7 +16,12 @@ export function App() {
 
     const filterList = (lang) => {
       const newList = list.filter((item) => {
-        if (item.languages.includes(lang) || item.tools.includes(lang)) {
+        if (
+          item.languages.includes(lang) ||
+          item.tools.includes(lang) ||
+          item.role.includes(lang) ||
+          item.level.includes(lang)
+        ) {
           return true;
         }
       });
@@ -28,9 +33,8 @@ export function App() {
 
   return (
     <div>
-      <header className="h-[25vh] bg-gray-100 bg-cover bg-header-mobile md:bg-header-desktop"></header>
-      <div></div>
-      <main className="px-8 py-4 bg-gray-200 h-[80vh] md:px-16">
+      <header className="h-[25vh] bg-gray-100 bg-cover bg-header-mobile lg:bg-header-desktop"></header>
+      <main className="px-8 py-4 bg-gray-200 h-[80vh] lg:px-16">
         {category.length != 0 && (
           <Categories setCategory={setCategory} category={category} />
         )}

@@ -2,14 +2,14 @@ import React from "react";
 
 export function Card({ data, setCategory }) {
   return (
-    <div className="relative w-full border-l-4 border-gray-400 rounded-lg bg-gray-300 shadow-lg my-8 p-4 pt-8 md:flex md:justify-between md:items-center">
-      <div className="border-b-[1px] border-gray-400 md:border-none md:flex md:items-center">
+    <div className="relative w-full border-l-4 border-gray-400 rounded-lg bg-gray-300 shadow-lg my-8 p-4 pt-8 lg:flex lg:justify-between lg:items-center">
+      <div className="border-b-[1px] border-gray-400 lg:border-none lg:flex  lg:items-center">
         <img
-          className="absolute top-[-24px] w-12 md:relative md:w-[80px] md:top-0"
+          className="absolute top-[-24px] w-12 lg:relative lg:w-[80px] lg:top-0"
           src={`${data.logo}`}
           alt="company logo"
         />
-        <div className="md:pl-4">
+        <div className="lg:pl-4">
           <div className="flex items-center pb-2 gap-5">
             <p>{data.company}</p>
             <span className="flex gap-2 text-white">
@@ -60,6 +60,22 @@ export function Card({ data, setCategory }) {
             </button>
           );
         })}
+        {data.role && (
+          <button
+            onClick={() => setCategory((prev) => [...prev, data.role])}
+            className="bg-gray-300 shadow-md px-2"
+          >
+            {data.role}
+          </button>
+        )}
+        {data.level && (
+          <button
+            onClick={() => setCategory((prev) => [...prev, data.level])}
+            className="bg-gray-300 shadow-md px-2"
+          >
+            {data.level}
+          </button>
+        )}
       </div>
     </div>
   );
