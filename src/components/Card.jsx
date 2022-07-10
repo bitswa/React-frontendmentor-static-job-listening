@@ -1,6 +1,18 @@
 import React from "react";
 
-export function Card({ data, setCategory }) {
+export function Card({ data, setCategory, category }) {
+  const handleCategory = (e) => {
+    if (category.length == 0) {
+      return setCategory((prev) => [...prev, e]);
+    }
+
+    const repeated = category.filter((item) => item == e);
+
+    if (repeated.length == 0) {
+      setCategory((prev) => [...prev, e]);
+    }
+  };
+
   return (
     <div className="relative w-full border-l-4 border-gray-400 rounded-lg bg-gray-300 shadow-lg my-8 p-4 pt-8 lg:flex lg:justify-between lg:items-center">
       <div className="border-b-[1px] border-gray-400 lg:border-none lg:flex  lg:items-center">
@@ -38,9 +50,7 @@ export function Card({ data, setCategory }) {
           return (
             <button
               key={index}
-              onClick={(e) =>
-                setCategory((prev) => [...prev, e.target.innerHTML])
-              }
+              onClick={(e) => handleCategory(e.target.innerHTML)}
               className="bg-gray-300 shadow-md px-2"
             >
               {lang}
@@ -51,9 +61,7 @@ export function Card({ data, setCategory }) {
           return (
             <button
               key={index}
-              onClick={(e) =>
-                setCategory((prev) => [...prev, e.target.innerHTML])
-              }
+              onClick={(e) => handleCategory(e.target.innerHTML)}
               className="bg-gray-300 shadow-md px-2"
             >
               {tool}
@@ -62,7 +70,7 @@ export function Card({ data, setCategory }) {
         })}
         {data.role && (
           <button
-            onClick={() => setCategory((prev) => [...prev, data.role])}
+            onClick={() => handleCategory(data.role)}
             className="bg-gray-300 shadow-md px-2"
           >
             {data.role}
@@ -70,7 +78,7 @@ export function Card({ data, setCategory }) {
         )}
         {data.level && (
           <button
-            onClick={() => setCategory((prev) => [...prev, data.level])}
+            onClick={() => handleCategory(data.level)}
             className="bg-gray-300 shadow-md px-2"
           >
             {data.level}

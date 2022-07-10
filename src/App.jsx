@@ -39,7 +39,7 @@ export function App() {
           <Categories setCategory={setCategory} category={category} />
         )}
         {list?.map((obj) => {
-          return <Card key={obj.id} data={obj} setCategory={setCategory} />;
+          return <Card key={obj.id} data={obj} category={category} setCategory={setCategory} />;
         })}
       </main>
     </div>
